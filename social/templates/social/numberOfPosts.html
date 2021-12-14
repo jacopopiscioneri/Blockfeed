@@ -1,0 +1,18 @@
+{% extends 'landing/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block numberOfPosts %}
+<div class="container">
+  {% for user in users %}
+  <div class="row justify-content-center mt-1">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <div class="row mb-2">
+        <div class="col-6">
+          <h5>{{user}} has written {{user.post_count}} posts.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

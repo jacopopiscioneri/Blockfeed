@@ -1,0 +1,42 @@
+{% extends 'landing/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <h5> Add a Post!</h5>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3 mb-5">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-grid gap-2">
+          <button class="btn btn-success mt-3">Submit!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% for post in post_list%}
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <p><strong>{{ post.author}}</strong> {{post.createdon}}</p>
+      <p>{{ post.content}}</p>
+      <div class="row mb-2">
+        <div class="col-6">
+          <a class="btn btn-sm btn-outline-success btn-block" href="https://ropsten.etherscan.io/tx/{{ post.txId }}">
+            Tx ID
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}

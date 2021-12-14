@@ -1,0 +1,56 @@
+{% extends 'landing/base.html' %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row mt-5">
+    <div class="col-md-3 col-sm-6">
+      <a href="{% url 'post-list' %}" class="btn btn-light">Back to Feed</a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3 mb-5">
+    <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 pt-3">
+      {% if profile.name %}
+      <h3 class="py-4">{{ profile.name }}
+        <span>
+          {% if request.user == user %}
+          <a href="{% url 'profile-edit' profile.pk %}" style="color: #333"><i class="far fa-edit"></i></a>
+          {% endif %}
+        </span>
+      </h3>
+      {% else %}
+      <h3 class="py-4"> {{ user.username }}</h3>
+      {% endif %}
+
+      {% if profile.location %}
+      <p>{{ profile.location }}</p>
+      {% endif %}
+
+      {% if profile.birth_date %}
+      <p>{{ profile.birth_date }}</p>
+      {% endif %}
+
+      {% if profile.bio %}
+      <p>{{ profile.bio }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% for post in posts %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-sm-12 border-bottom">
+      <p><strong>{{ post.author}}</strong> {{post.createdon}}</p>
+      <p>{{ post.content}}</p>
+      <div class="row mb-2">
+        <div class="col-6">
+          <a class="btn btn-sm btn-outline-success btn-block" href="https://ropsten.etherscan.io/tx/{{ post.txId }}">
+            Tx ID
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
